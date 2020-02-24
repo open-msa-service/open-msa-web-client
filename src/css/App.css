@@ -1,12 +1,18 @@
+html{
+    width: 100%;
+    height: 100%;
+}
+
 .authBox{
-    width: 900px;
+    width: 1024px;
+    height: 100%;
     overflow: hidden;
-    margin: 80px auto 30px;
+    margin: 100px auto;
 }
 
 .leftBox{
-    width: 500px;
-    height: 480px;
+    width: 624px;
+    height: 600px;
     float: left;
     position: relative;
     display: block;
@@ -21,7 +27,7 @@
 
 .rightBox{
     width: 398px;
-    height: 480px;
+    height: 600px;
     float: right;
     border: 1px solid #59c385;
 }
@@ -75,7 +81,7 @@
     font-size: 22px;
     text-align: center;
     font-weight: bold;
-    margin-bottom: 30px;
+    margin-bottom: 60px;
     color: #116149;
 }
 
@@ -194,4 +200,24 @@
 
 .icAuth.facebook{
     background-image: url("");
+}
+
+a{
+    text-decoration: none;
+}
+
+.register-blank{
+    height: 20px;
+}
+
+.btnRegist{
+    width: 300px;
+    height: 47px;
+    color: #ffffff;
+    background-color: rgb(18, 161, 78);
+    text-align: center;
+    line-height: 47px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
 }

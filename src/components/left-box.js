@@ -7,8 +7,8 @@ class LeftBox extends React.Component{
             <div className={'leftBox'}>
                     <div className={'bgGreen'} />
                     <div className={'imageAuth'} />
-                    <div className={'imageText bold style1'}>Codewhatever</div>
-                    <div className={'imageText style2'}>Build your business online</div>
+                    <div className={'imageText bold style1'}></div>
+                    <div className={'imageText style2'}></div>
             </div>
         )
     }
