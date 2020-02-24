@@ -8,9 +8,7 @@ import {Redirect} from 'react-router-dom';
 class SigninContainer extends React.Component{
 
     sendSignIn = (data) =>{
-        let config = {
-            responseType:"application/json"
-        }
+        
         let requestData = JSON.stringify(data);
         console.log(requestData);
         
@@ -25,8 +23,6 @@ class SigninContainer extends React.Component{
         }).catch(e => {
             alert(e.response.data.message);
         });
-        
-        
     }
 
     render(){
