@@ -43,20 +43,20 @@ class RightBox extends React.Component{
                         <div className={'titleAuth'}>L O G O</div>
                         <div className={'inputSBox'}>
                             <input className={'inputS'} name="userid" onChange={this.handleChange}
-                            value={this.state.userid} type={'text'} placeholder={'아 이 디'} /> 
+                            value={this.state.userid} type={'text'} placeholder={'아 이 디'} required/> 
                         </div>
                         <div className={'inputSBox'}>
                             <input className={'inputS'} name="password" onChange={this.handleChange}
-                            value={this.state.password} type={'password'} placeholder={'비 밀 번 호'} /> 
+                            value={this.state.password} type={'password'} placeholder={'비 밀 번 호'} required/> 
                         </div>
                         <div className={'contentBox'}>
                             <div className={'checkboxBox'}>
                                 <input type={'checkbox'} className={'checkbox'} />
-                                <label className={'checkboxLabel'}>Remember</label>
+                                <label className={'checkboxLabel'}>아이디저장</label>
                             </div>
                             <div className={'text1'}>아이디/비밀번호찾기</div>
                         </div>
-                        <div className={'btnAuth'} onClick={this.handleSubmit}>로 그 인</div>
+                        <input type={'submit'} className={'btnRegist'} value={'로 그 인'} />
                         <Link to="/regist" className={'text1'}>회원가입</Link>
                         <div className={'borderBox'}>
                             <div className={'line'} />

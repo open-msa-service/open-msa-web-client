@@ -82,7 +82,7 @@ class RegistRight extends React.Component{
                         <div className={'titleAuth'}>새 계정 만들기</div>
                         <div className={'inputSBox'}>
                             <input className={'inputS'} name="userId" onChange={this.handleChange}
-                            value={this.state.userId} type={'text'} placeholder={'아 이 디'} maxlength="20" required/> 
+                            value={this.state.userId} type={'text'} placeholder={'아 이 디'} maxLength="20" required/> 
                         </div>
                         <div className={'inputSBox'}>
                             <input className={'inputS'} name="password" onChange={this.handleChange}
@@ -90,7 +90,7 @@ class RegistRight extends React.Component{
                         </div>
                         <div className={'inputSBox'}>
                             <input className={'inputS'} name="username" onChange={this.handleChange}
-                            value={this.state.username} type={'text'} placeholder={'이 름'} maxlength="20" required/> 
+                            value={this.state.username} type={'text'} placeholder={'이 름'} maxLength="20" required/> 
                         </div>
                         <div className={'inputSBox'}>
                             <input className={'inputS'} name="email" onChange={this.handleChange}
