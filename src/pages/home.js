@@ -1,38 +1,54 @@
 import React from 'react';
-import LeftBox from '../components/left-box'
-import RightBox from '../components/right-box'
-import '../css/App.css';
+import Routes from '../components/Routes';
+import TopNavigation from '../components/topNavigation';
+import SideNavigation from '../components/sideNavigation';
+import Footer from '../components/Footer';
 import axios from 'axios';
-import {Redirect} from 'react-router-dom';
+import {getUser, getToken} from '../shared/auth'
 
-class SigninContainer extends React.Component{
 
-    sendSignIn = (data) =>{
+class Home extends React.Component{
+
+    constructor(props){
+        super(props);
         
-        let requestData = JSON.stringify(data);
-        console.log(requestData);
+    }
+
+    componentDidMount(){
+        let userId = getUser();
+        let token = getToken();
+
+        console.log("userId : " + userId);
+        console.log("token : " + token);
+
+        let config ={
+            headers:{
+                'Response-Type':'application/json',
+                'Authorization':token
+            }
+        }
         
-        axios({
-            method:'post',
-            url:'/formlogin',
-            data:requestData,
-            responseType:"application/json"
-        }).then((res) => {
-            // 로그인 성공 후 페이지 이동
-            window.location = "/home";
+        axios.get('/member/user/info/userId/'+userId, config)
+        .then((res) => {
+            console.log(res);
         }).catch(e => {
-            alert(e.response.data.message);
+            console.log(e);
         });
     }
 
     render(){
         return(
-            <div className={'authBox'}>
-                <LeftBox />
-                <RightBox onCreate={this.sendSignIn} />
+            <div className="flexible-content">
+                <TopNavigation />
+                <SideNavigation />
+                    <main id="content" className="p-5">
+                        <Routes />
+                    </main>
+                <Footer />
             </div>
         )
     }
+
 }
 
-export default SigninContainer;
+export default Home;
