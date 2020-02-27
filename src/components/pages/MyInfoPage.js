@@ -4,11 +4,11 @@ import FileUploadSection from './sections/FileUploadSection';
 import '../../css/timeline.css'
 
 class MyInfoPage extends React.Component{
-    
-    sendImageFile = (data) =>{
-        console.log(data);
-    }
 
+    constructor(props){
+        super(props);
+    }
+    
 
     render(){
         return(
@@ -18,10 +18,10 @@ class MyInfoPage extends React.Component{
                         <MDBRow className="text-md-left">
                             <MDBCol lg="8" md="12" className="mb-5">
                                 <MDBCol md="4" lg="6" className="float-left">
-                                    <FileUploadSection onCreate={this.sendImageFile}/>
+                                    <FileUploadSection />
                                 </MDBCol>
                                 <MDBCol md="6" lg="6" className="float-right">
-                                    <h4 className="font-weight-bold mb-3">사용자 이름</h4>
+                                    <h4 className="font-weight-bold mb-3">사용자이름</h4>
                                     <h6 className="font-weight-bold grey-text mb-3">
                                         상태 메세지
                                     </h6>

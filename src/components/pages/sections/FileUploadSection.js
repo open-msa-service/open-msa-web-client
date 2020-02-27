@@ -1,5 +1,6 @@
 import React from 'react';
-import { MDBCardImage } from "mdbreact";
+import { MDBCardImage, MDBIcon, MDBBtn } from "mdbreact";
+import axios from 'axios';
 
 class FileUploadSection extends React.Component{
 
@@ -11,6 +12,27 @@ class FileUploadSection extends React.Component{
         }
 
         this.handleImageChange = this.handleImageChange.bind(this);
+        this.handleSubmitChange = this.handleSubmitChange.bind(this);
+    }
+
+    handleSubmitChange = (e) =>{
+        // 여기서 프로필 사진 저장하자.
+        const requestData = new FormData();
+        requestData.append("file", this.state.file);
+        axios.post(
+            "/member/user/uploadFile",
+            requestData,
+            {headers : {
+                'Content-Type' : 'multipart/form-data',
+                'Authorization' : localStorage.getItem('token')
+            }}
+        )
+        .then((res) => {
+            console.log(res);
+        })
+        .catch((e) => {
+            console.log(e);
+        })
     }
 
     handleImageChange = (e) =>{
@@ -26,8 +48,7 @@ class FileUploadSection extends React.Component{
             });
         }
         reader.readAsDataURL(file);
-        
-        this.props.onCreate(this.state);
+
     }
 
     render(){
@@ -37,7 +58,8 @@ class FileUploadSection extends React.Component{
             <div className="profile-image-wrap">
                 <MDBCardImage
                     top
-                    src={this.state.imagePreviewUrl}
+                    //src={this.state.imagePreviewUrl}
+                    src='/static/images/image_signin.png'
                     alt="프로필사진 이미지"
                     className="profile-image"
                 />
@@ -55,7 +77,9 @@ class FileUploadSection extends React.Component{
                         {this.state.file.name}
                     </label>
                 </div>
-                <div className="previewText">프로필 사진을 수정해보세요!</div>
+            </div>
+            <div>
+                <MDBBtn outline color="black" className="profile-image-modify" onClick={this.handleSubmitChange}>프로필 사진 수정</MDBBtn>
             </div>
             
             </>

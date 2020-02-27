@@ -9,17 +9,18 @@ import {getUser, getToken} from '../shared/auth'
 
 class Home extends React.Component{
 
+    state = ({
+        userData : ''
+    });
+
     constructor(props){
         super(props);
         
     }
 
-    componentDidMount(){
+    componentWillMount(){
         let userId = getUser();
         let token = getToken();
-
-        console.log("userId : " + userId);
-        console.log("token : " + token);
 
         let config ={
             headers:{
@@ -30,9 +31,12 @@ class Home extends React.Component{
         
         axios.get('/member/user/info/userId/'+userId, config)
         .then((res) => {
-            console.log(res);
+            this.setState({
+                userData:res.data.data.member
+            })
         }).catch(e => {
             console.log(e);
+            window.location = "/";
         });
     }
 
@@ -40,9 +44,9 @@ class Home extends React.Component{
         return(
             <div className="flexible-content">
                 <TopNavigation />
-                <SideNavigation />
+                <SideNavigation userData = {this.state.userData}/>
                     <main id="content" className="p-5">
-                        <Routes />
+                        <Routes userData = {this.state.userData}/>
                     </main>
                 <Footer />
             </div>

@@ -3,7 +3,7 @@ import { MDBCard, MDBCardBody, MDBIcon, MDBBtn, MDBInput, MDBRow, MDBCol, MDBCar
 import '../../css/timeline.css';
 
 class TimeLine extends React.Component{
-    
+
     render(){
         return(
             <>
