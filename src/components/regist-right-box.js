@@ -1,6 +1,7 @@
 import React from 'react';
-import Social from './social-box';
-import { Router, Link } from 'react-router-dom';
+import { MDBContainer, MDBCardBody, MDBCard, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
+import '../css/App.css';
+import logo from "../assets/logo_2.png";
 
 class RegistRight extends React.Component{
     state = {
@@ -28,14 +29,16 @@ class RegistRight extends React.Component{
             return false;
         }
         if(!this.isPhoneNumberValidate(this.state.phoneNumber)){
-            alert("핸드폰 번호는 \'-\'를 포함하여 입력해주세요.");
+            alert("핸드폰 번호는 '-' 를 포함하여 입력해주세요.");
             return false;
         }
 
+        /* 테스트를 위해 간편한 비밀번호 입력을 위한 주석처리
         if(!this.isPasswordValidate(this.state.password)){
             alert("비밀번호는 문자, 숫자, 특수문자를 포함하여 8~15자리를 입력해주세요.");
             return false;
         }
+        */
         // 상태값을 onCreate를 통하여 부모에게 전달
         this.props.onCreate(this.state);
 
@@ -76,37 +79,39 @@ class RegistRight extends React.Component{
 
     render(){
         return(
-            <form onSubmit={this.handleSubmit}>
-                <div className={'rightBox'}>
-                    <div className={'box'}>
-                        <div className={'titleAuth'}>새 계정 만들기</div>
-                        <div className={'inputSBox'}>
-                            <input className={'inputS'} name="userId" onChange={this.handleChange}
-                            value={this.state.userId} type={'text'} placeholder={'아 이 디'} maxLength="20" required/> 
-                        </div>
-                        <div className={'inputSBox'}>
-                            <input className={'inputS'} name="password" onChange={this.handleChange}
-                            value={this.state.password} type={'password'} placeholder={'비 밀 번 호'} required /> 
-                        </div>
-                        <div className={'inputSBox'}>
-                            <input className={'inputS'} name="username" onChange={this.handleChange}
-                            value={this.state.username} type={'text'} placeholder={'이 름'} maxLength="20" required/> 
-                        </div>
-                        <div className={'inputSBox'}>
-                            <input className={'inputS'} name="email" onChange={this.handleChange}
-                            value={this.state.email} type={'email'} placeholder={'이 메 일'} required/> 
-                        </div>
-                        <div className={'inputSBox'}>
-                            <input className={'inputS'} name="phoneNumber" onChange={this.handleChange}
-                            value={this.state.phoneNumber} type={'text'} placeholder={'전 화 번 호 (\'-\'를 포함하여 입력해주세요)'} required/> 
-                        </div>
-                        <div className={'register-blank'}></div>
-                        <input type={'submit'} className={'btnRegist'} value={'가 입 완 료'} />
-                        <div className={'register-blank'}></div>
-                        <div className={'btnAuth'} onClick={this.backToLogin}>뒤 로</div>
-                    </div>
-                </div>
-            </form>
+            <div className="form-wrap">
+                <MDBContainer>
+                    <MDBRow>
+                        <MDBCol md="6" className="card-wrap">
+                            <MDBCard>
+                                <MDBCardBody className="mx-4">
+                                <form onSubmit={this.handleSubmit}>
+                                    <div className="text-center">
+                                        <img className="home-logo" src={logo} />
+                                    </div>
+                                    <div className="grey-text">
+                                    <MDBInput label="아 이 디" icon="user" group type="text" onChange={this.handleChange}
+                                        required name="userId" value={this.state.userId}/>
+                                    <MDBInput label="비 밀 번 호" icon="lock" group type="password" required onChange={this.handleChange}
+                                        name="password" value={this.state.password}/>
+                                    <MDBInput label="이 름" icon="angry" group type="text" validate onChange={this.handleChange}
+                                        required name="username" value={this.state.username}/>
+                                    <MDBInput label="이 메 일" icon="envelope" group type="email" onChange={this.handleChange}
+                                        required name="email" value={this.state.email}/>
+                                    <MDBInput label="전 화 번 호" icon="phone" group type="text" onChange={this.handleChange}
+                                        required name="phoneNumber" value={this.state.phoneNumber}/>
+                                    </div>
+                                    <div className="text-center">
+                                        <MDBBtn color="primary" type="submit">가 입 완 료</MDBBtn>
+                                        <MDBBtn color="primary" onClick={this.backToLogin}> 뒤 로 </MDBBtn>
+                                    </div>
+                                </form>
+                                </MDBCardBody>
+                            </MDBCard>
+                        </MDBCol>
+                    </MDBRow>
+                </MDBContainer>
+            </div>
         )
     }
 }
