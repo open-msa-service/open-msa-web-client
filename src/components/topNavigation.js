@@ -50,7 +50,7 @@ class TopNavigation extends Component {
                             <a className="nav-link navbar-link" rel="noopener noreferrer" target="_blank" href="/home"><MDBIcon icon="bell" /></a>
                         </MDBNavItem>
                         <MDBNavItem>
-                            <MDBIcon icon="sign-out-alt" onClick={this.logout} />
+                            <a className="nav-link navbar-link"><MDBIcon icon="sign-out-alt" onClick={this.logout} /></a>
                         </MDBNavItem>
                     </MDBNavbarNav>
                 </MDBCollapse>

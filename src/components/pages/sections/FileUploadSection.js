@@ -16,7 +16,6 @@ class FileUploadSection extends React.Component{
     }
 
     handleSubmitChange = (e) =>{
-        // 여기서 프로필 사진 저장하자.
         const requestData = new FormData();
         requestData.append("file", this.state.file);
         axios.post(
@@ -58,8 +57,7 @@ class FileUploadSection extends React.Component{
             <div className="profile-image-wrap">
                 <MDBCardImage
                     top
-                    //src={this.state.imagePreviewUrl}
-                    src='/static/images/image_signin.png'
+                    src={this.state.imagePreviewUrl}
                     alt="프로필사진 이미지"
                     className="profile-image"
                 />
@@ -72,6 +70,7 @@ class FileUploadSection extends React.Component{
                         id="inputGroupFile01"
                         aria-describedby="inputGroupFileAddon01"
                         onChange={this.handleImageChange}
+                        accept="image/jpg, image/jpeg, image/gif, image/png"
                     />
                     <label className="custom-file-label" htmlFor="inputGroupFile01">
                         {this.state.file.name}

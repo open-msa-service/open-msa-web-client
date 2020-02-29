@@ -2,6 +2,7 @@ import React from 'react';
 import logo from "../assets/logo_2.png";
 import { MDBListGroup, MDBListGroupItem, MDBIcon, MDBNavbarBrand } from 'mdbreact';
 import { NavLink } from 'react-router-dom';
+import '../css/timeline.css';
 
 class TopNavigation extends React.Component{
 
@@ -20,9 +21,9 @@ class TopNavigation extends React.Component{
                     <NavLink to="/home/myinfo" activeClassName="activeClass">
                         <MDBListGroupItem>
                         <img
-                            src="https://mdbootstrap.com/img/Photos/Avatars/img%20(17)-mini.jpg"
+                            src={this.props.userData.profileHref}
                             alt=""
-                            className="mr-3 rounded-circle"
+                            className="mr-3 rounded-circle profile-circle"
                         />
                         {this.props.userData.username}
                         </MDBListGroupItem>

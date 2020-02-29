@@ -1,27 +1,67 @@
 import React from 'react';
-import { MDBCard, MDBCardBody, MDBIcon, MDBBtn, MDBInput, MDBRow, MDBCol, MDBCardImage } from 'mdbreact';
+import { MDBCard, MDBCardBody, MDBIcon, MDBBtn, MDBInput, MDBRow, MDBCol, MDBCardImage, MDBFormInline, MDBContainer, MDBInputGroup} from 'mdbreact';
 import '../../css/timeline.css';
+import TimeLineWriteSection from '../pages/sections/TimeLineWriteSection';
+import axios from 'axios';
+import {getUser, getToken} from '../../shared/auth';
 
 class TimeLine extends React.Component{
 
+    constructor(props){
+        super(props);
+
+        this.sendTimelineContent = this.sendTimelineContent.bind(this);
+    }
+
+    sendTimelineContent = (data) =>{
+        const requestData = new FormData();
+        let fileNameString = [];
+        for(let i=0; i < data.file.length; i++){
+            requestData.append('file', data.file[i]);
+            fileNameString.push(data.file[i].name);
+        }
+
+        let timeline = {
+            content : data.content,
+            scope : data.scope,
+            userId : getUser(),
+            fileNameList : fileNameString
+        }
+        
+        axios.post("/timeline/time/upload/content",
+        JSON.stringify(timeline),
+        {
+            headers:{
+                'Content-Type':'application/json',
+                'Authorization' : getToken()
+            }
+        }).then((res1)=>{
+            axios.post("/timeline/time/upload/image",
+                requestData,
+                {
+                    headers:{
+                        'Content-Type' : 'multipart/form-data',                
+                        'Authorization' : getToken()
+                    }
+                })
+            .then( (res2) => {
+                alert(res1.data.message);
+            })
+            .catch( (e) => {
+                console.log(e);
+            })
+        }).catch((e)=>{
+            console.log(e);
+        })
+
+    }
+
+    
     render(){
         return(
             <>
-                <MDBCard className="mb-4">
-                    <MDBCardBody id="breadcrumb" className="d-flex align-items-center justify-content-between">
-                        <div className="input-group">
-                            <div className="input-group-prepend">
-                                <span className="input-group-text" id="basic-addon">
-                                <i className="fas fa-pencil-alt prefix"></i>
-                                </span>
-                            </div>
-                            <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                        </div>
-                        <div>
-                            <MDBBtn size="sm" color="primary" className="my-0" type="submit"><MDBIcon icon="search" /></MDBBtn>
-                        </div>
-                    </MDBCardBody>
-                </MDBCard>
+                <TimeLineWriteSection onCreate = {this.sendTimelineContent}/>
+
                 <MDBRow>
                 <MDBCol md="6" lg="4">
                     <MDBCard news className="my-5">

@@ -31,6 +31,7 @@ class Home extends React.Component{
         
         axios.get('/member/user/info/userId/'+userId, config)
         .then((res) => {
+            console.log(res);
             this.setState({
                 userData:res.data.data.member
             })
