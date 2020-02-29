@@ -1,6 +1,7 @@
 import React from 'react';
-import Social from './social-box';
-import { Router, Link } from 'react-router-dom';
+import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBBtn, MDBIcon, MDBModalFooter } from 'mdbreact';
+import '../css/App.css';
+import logo from "../assets/logo_2.png";
 
 class RightBox extends React.Component{
     state = {
@@ -37,35 +38,84 @@ class RightBox extends React.Component{
 
     render(){
         return(
-            <form onSubmit={this.handleSubmit}>
-                <div className={'rightBox'}>
-                    <div className={'box'}>
-                        <div className={'titleAuth'}>L O G O</div>
-                        <div className={'inputSBox'}>
-                            <input className={'inputS'} name="userid" onChange={this.handleChange}
-                            value={this.state.userid} type={'text'} placeholder={'아 이 디'} required/> 
-                        </div>
-                        <div className={'inputSBox'}>
-                            <input className={'inputS'} name="password" onChange={this.handleChange}
-                            value={this.state.password} type={'password'} placeholder={'비 밀 번 호'} required/> 
-                        </div>
-                        <div className={'contentBox'}>
-                            <div className={'checkboxBox'}>
-                                <input type={'checkbox'} className={'checkbox'} />
-                                <label className={'checkboxLabel'}>아이디저장</label>
-                            </div>
-                            <div className={'text1'}>아이디/비밀번호찾기</div>
-                        </div>
-                        <input type={'submit'} className={'btnRegist'} value={'로 그 인'} />
-                        <Link to="/regist" className={'text1'}>회원가입</Link>
-                        <div className={'borderBox'}>
-                            <div className={'line'} />
-                            <div className={'text2 or'}>OR</div>
-                        </div>
-                        <Social />
-                    </div>
-                </div>
-            </form>
+            <div className="form-wrap">
+                <MDBContainer>
+                    <MDBRow>
+                        <MDBCol md="6" className="card-wrap">
+                            <MDBCard>
+                                <MDBCardBody className="mx-4">
+                                    <div className="text-center">
+                                        <img className="home-logo" src={logo} alt="Home Logo"/>
+                                    </div>
+                                    <form onSubmit={this.handleSubmit}>
+                                        <MDBInput
+                                        label="아 이 디"
+                                        group
+                                        type="text"
+                                        name="userid"
+                                        onChange={this.handleChange}
+                                        required
+                                        />
+                                        <MDBInput
+                                        label="비 밀 번 호"
+                                        group
+                                        type="password"
+                                        name="password"
+                                        onChange={this.handleChange}
+                                        containerClass="mb-0"
+                                        required
+                                        />
+                                        <p className="font-small blue-text d-flex justify-content-end pb-3">
+                                            <a href="#!" className="blue-text ml-1">
+                                                비밀번호 찾기
+                                            </a>
+                                        </p>
+                                        <div className="text-center mb-3">
+                                        <MDBBtn
+                                            type="submit"
+                                            gradient="blue"
+                                            rounded
+                                            className="btn-block z-depth-1a"
+                                        >
+                                            로 그 인
+                                        </MDBBtn>
+                                        </div>
+                                    </form>
+                                    <p className="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2">
+                                        or Sign in with:
+                                    </p>
+                                    <div className="row my-3 d-flex justify-content-center">
+                                    <MDBBtn
+                                        type="button"
+                                        color="white"
+                                        rounded
+                                        className="mr-md-3 z-depth-1a"
+                                    >
+                                        <MDBIcon fab icon="facebook-f" className="blue-text text-center" />
+                                    </MDBBtn>
+                                    <MDBBtn
+                                        type="button"
+                                        color="white"
+                                        rounded
+                                        className="z-depth-1a"
+                                    >
+                                        <MDBIcon fab icon="google-plus-g" className="blue-text" />
+                                    </MDBBtn>
+                                    </div>
+                                </MDBCardBody>
+                                <MDBModalFooter className="mx-5 pt-3 mb-1">
+                                    <p className="font-small grey-text d-flex justify-content-end">
+                                        사용자가 아닐 경우
+                                        <a href="/regist" className="blue-text ml-1">
+                                            회원가입
+                                        </a>
+                                    </p>
+                                </MDBModalFooter>
+                            </MDBCard>
+                        </MDBCol>
+                    </MDBRow>
+                </MDBContainer>
+            </div>
         )
     }
 }
