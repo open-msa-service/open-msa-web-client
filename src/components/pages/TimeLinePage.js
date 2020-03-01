@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBCard, MDBCardBody, MDBIcon, MDBBtn, MDBInput, MDBRow, MDBCol, MDBCardImage, MDBFormInline, MDBContainer, MDBInputGroup} from 'mdbreact';
+import { MDBCard, MDBCardBody, MDBIcon, MDBInput, MDBRow, MDBCol, MDBCardImage } from 'mdbreact';
 import '../../css/timeline.css';
 import TimeLineWriteSection from '../pages/sections/TimeLineWriteSection';
 import axios from 'axios';
@@ -27,35 +27,23 @@ class TimeLine extends React.Component{
             userId : getUser(),
             fileNameList : fileNameString
         }
+        requestData.append('timeline', JSON.stringify(timeline));
         
         axios.post("/timeline/time/upload/content",
-        JSON.stringify(timeline),
+        requestData,
         {
             headers:{
-                'Content-Type':'application/json',
+                'Content-Type':'multipart/form-data',
                 'Authorization' : getToken()
             }
         }).then((res1)=>{
-            axios.post("/timeline/time/upload/image",
-                requestData,
-                {
-                    headers:{
-                        'Content-Type' : 'multipart/form-data',                
-                        'Authorization' : getToken()
-                    }
-                })
-            .then( (res2) => {
-                alert(res1.data.message);
-            })
-            .catch( (e) => {
-                console.log(e);
-            })
+            alert(res1.data.message);
+            window.location = "/home/timeline";
         }).catch((e)=>{
-            console.log(e);
+            alert(e);
         })
 
     }
-
     
     render(){
         return(

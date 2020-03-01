@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBCardImage, MDBIcon, MDBBtn } from "mdbreact";
+import { MDBCardImage } from "mdbreact";
 import axios from 'axios';
 
 class FileUploadSection extends React.Component{
@@ -12,25 +12,11 @@ class FileUploadSection extends React.Component{
         }
 
         this.handleImageChange = this.handleImageChange.bind(this);
-        this.handleSubmitChange = this.handleSubmitChange.bind(this);
     }
 
-    handleSubmitChange = (e) =>{
-        const requestData = new FormData();
-        requestData.append("file", this.state.file);
-        axios.post(
-            "/member/user/uploadFile",
-            requestData,
-            {headers : {
-                'Content-Type' : 'multipart/form-data',
-                'Authorization' : localStorage.getItem('token')
-            }}
-        )
-        .then((res) => {
-            console.log(res);
-        })
-        .catch((e) => {
-            console.log(e);
+    componentWillMount(){
+        this.setState({
+            imagePreviewUrl:this.props.imgSrc
         })
     }
 
@@ -47,22 +33,29 @@ class FileUploadSection extends React.Component{
             });
         }
         reader.readAsDataURL(file);
-
+        
+        this.props.changeImage(file);
     }
 
     render(){
+        const isModify = this.props.isModify;
 
         return(
             <>
             <div className="profile-image-wrap">
-                <MDBCardImage
+                {isModify ? (<MDBCardImage
                     top
                     src={this.state.imagePreviewUrl}
                     alt="프로필사진 이미지"
                     className="profile-image"
-                />
+                />) : (<MDBCardImage
+                    top
+                    src={this.props.imgSrc}
+                    alt="프로필사진 이미지"
+                    className="profile-image"
+                />)}
             </div>
-            <div className="input-group">
+            {isModify ? (<div className="input-group">
                 <div className="custom-file">
                     <input
                         type="file"
@@ -76,11 +69,8 @@ class FileUploadSection extends React.Component{
                         {this.state.file.name}
                     </label>
                 </div>
-            </div>
-            <div>
-                <MDBBtn outline color="black" className="profile-image-modify" onClick={this.handleSubmitChange}>프로필 사진 수정</MDBBtn>
-            </div>
-            
+            </div>)
+            : (<></>)}
             </>
         )
     }

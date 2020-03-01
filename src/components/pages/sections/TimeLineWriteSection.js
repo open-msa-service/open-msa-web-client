@@ -1,7 +1,5 @@
 import React from 'react';
-import { MDBCard, MDBCardBody, MDBBtn, MDBRow, MDBCol, MDBContainer} from 'mdbreact';
-
-
+import { MDBCard, MDBCardBody, MDBBtn, MDBContainer} from 'mdbreact';
 
 
 class TimeLineWriteSection extends React.Component{
@@ -87,7 +85,7 @@ class TimeLineWriteSection extends React.Component{
                                     <td>
                                         <select className="browser-default custom-select" name="scope" value={this.state.value} onChange={this._handleChange}>
                                             <option value="ALL">전 체 공 개</option>
-                                            <option value="USER">친 구 만</option>
+                                            <option value="FRIEND">친 구 만</option>
                                         </select>
                                     </td>
                                     <td>
