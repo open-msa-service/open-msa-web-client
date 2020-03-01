@@ -21,6 +21,11 @@ class TimeLine extends React.Component{
             fileNameString.push(data.file[i].name);
         }
 
+        if(data.content.length == 0){
+            alert("게시물 내용을 입력해주세요.");
+            return false;
+        }
+
         let timeline = {
             content : data.content,
             scope : data.scope,
@@ -40,7 +45,8 @@ class TimeLine extends React.Component{
             alert(res1.data.message);
             window.location = "/home/timeline";
         }).catch((e)=>{
-            alert(e);
+            alert("게시글 등록에 실패했습니다.");
+            window.location = "/home/timeline";
         })
 
     }

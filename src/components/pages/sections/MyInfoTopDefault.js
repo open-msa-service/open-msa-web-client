@@ -14,6 +14,14 @@ class MyInfoTopDefault extends React.Component{
         this.props.clickModify();
     }
 
+    textLineBreak = (lines) => {
+        return lines ?
+          lines.split(/[\r\n]/).map((partial, i) =>
+            partial && <span key={i}>{partial}{i !== lines.length - 1 && <br />}</span>
+          )
+          : lines;
+      };
+
     render(){
         return(
             <MDBCard className="my-5 px-5 pb-1 mb-4 text-center">
@@ -37,7 +45,7 @@ class MyInfoTopDefault extends React.Component{
                                     {this.props.parentsData.statusMessage}
                                 </h6>
                                 <p className="grey-text">
-                                    {this.props.parentsData.introduceMessage}
+                                    {this.textLineBreak(this.props.parentsData.introduceMessage)}
                                 </p>
                             </MDBCol>
                         </MDBCol>

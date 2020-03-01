@@ -30,37 +30,42 @@ class MyInfoTopSection extends React.Component{
     }
 
     _sendUpdateUserInfo = (data) => {
-        console.log(data);
+        const formData = new FormData();
+        let files = data.file;
+        let proHref = '';
+        if(files != ''){
+            proHref = files.name;
+            formData.append('file', files);
+        }else{
+            proHref = this.props.userData.profileHref;
+        }
+
         let requestData = {
             userId : getUser(),
             email : data.email,
             phoneNumber : data.phoneNumber,
             statusMessage : data.statusMessage,
-            introduceMessage : data.introduceMessage
+            introduceMessage : data.introduceMessage,
+            profileHref : proHref
         };
+        formData.append('member', JSON.stringify(requestData));
 
-        if(data.file != ''){
-            // file is not null
-            requestData.profileImage = data.file.name;
-        }
-
-        axios.put("/timeline/time/update", JSON.stringify(requestData),
+        axios.put("/member/user/profile",formData,
             {
                 headers:{
+                    'Content-Type' : 'multipart/form-data',
                     'Authorization' : getToken(),
-                    'Content-Type' : 'application/json',
                     'Response-Type' : 'application/json'
                 }
-            }
-        ).then((res) => {
-            console.log(res);
-            if(data.file != ''){ // 파일 업로드 수행
-                
-            }
-        })
-        .catch((e) => {
-            console.log(e);
-        })
+            })
+            .then((res) => {
+                alert(res.data.message);
+                window.location = "/home/myinfo";
+            })
+            .catch((e)=>{
+                alert(e.message);
+                window.location = "/home/myinfo";
+            })
     }
 
     render(){

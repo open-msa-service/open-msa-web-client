@@ -46,7 +46,42 @@ class MyInfoTopModify extends React.Component{
         });
     }
 
-    _sendUpdateUserInfo = () =>{
+    isEmailValidate = (email) =>{
+        const emailRegex = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+        return emailRegex.test(email);
+    }
+
+    isPhoneNumberValidate = (phoneNumber) => {
+        const phoneRegex = /^\d{3}-\d{3,4}-\d{4}$/;
+        return phoneRegex.test(phoneNumber);
+    }
+
+    _sendUpdateUserInfo = (e) =>{
+        e.preventDefault();
+
+        if(!this.isEmailValidate(this.state.email)){
+            alert("이메일 형식에 맞게 입력해주세요.");
+            return false;
+        }
+        if(!this.isPhoneNumberValidate(this.state.phoneNumber)){
+            alert("핸드폰 번호는 '-' 를 포함하여 입력해주세요.");
+            return false;
+        }
+
+        if(this.state.statusMessage != '' && this.state.statusMessage != null){
+            if(this.state.statusMessage.length > 2000){
+                alert("문자의 길이는 2000자를 넘을 수 없습니다.");
+                return false;
+            }    
+        }
+
+        if(this.state.introduceMessage != '' && this.state.introduceMessage != null){
+            if(this.state.introduceMessage.length > 2000){
+                alert("문자의 길이는 2000자를 넘을 수 없습니다.");
+                return false;
+            }
+        }
+
         this.props.sendUpdate(this.state);
     }
 
