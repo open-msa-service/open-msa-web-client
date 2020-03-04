@@ -1,6 +1,7 @@
 import React from 'react';
 import {  MDBRow, MDBCol, MDBCard, MDBCardBody, MDBBtn} from "mdbreact";
 import FileUploadSection from './FileUploadSection';
+import { getUser } from '../../../shared/auth';
 
 class MyInfoTopDefault extends React.Component{
 
@@ -51,10 +52,11 @@ class MyInfoTopDefault extends React.Component{
                         </MDBCol>
                     </MDBRow>
                 </MDBCardBody>
-                <MDBCol>
+                {getUser() == this.props.parentsData.userId ? 
+                (<MDBCol>
                     <MDBBtn outline color="black" className="profile-image-modify"
                                     onClick={this.onClick}>프로필 수정</MDBBtn>
-                </MDBCol>
+                </MDBCol>) : (<></>)}
             </MDBCard>
         )
     }

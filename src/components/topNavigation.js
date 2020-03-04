@@ -38,7 +38,7 @@ class TopNavigation extends Component {
                 <MDBCollapse isOpen = { this.state.collapse } navbar>
                     <MDBNavbarNav center>
                     <MDBFormInline className="md-form m-0">
-                        <input className="nav-search" type="search" placeholder="  검색" aria-label="Search"/>
+                        <input className="nav-search" type="search" placeholder="  친구검색" aria-label="Search"/>
                         <MDBBtn size="sm" color="primary" className="my-0" type="submit"><MDBIcon icon="search" /></MDBBtn>
                     </MDBFormInline>
                     </MDBNavbarNav>

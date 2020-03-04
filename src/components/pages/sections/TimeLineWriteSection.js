@@ -51,6 +51,7 @@ class TimeLineWriteSection extends React.Component{
                         <MDBContainer>
                             <form>
                             <table>
+                                <tbody>
                                 <tr>
                                     <th>
                                         <label>게시글 만들기</label>
@@ -92,6 +93,7 @@ class TimeLineWriteSection extends React.Component{
                                         <MDBBtn outline color="black" className="profile-image-modify" onClick={this.uploadFiles}>게시글 등록</MDBBtn>
                                     </td>
                                 </tr>
+                                </tbody>
                             </table>
                             </form>
                         </MDBContainer>            
