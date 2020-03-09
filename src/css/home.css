@@ -1,3 +1,7 @@
+html{
+  height: 100%;
+}
+
 
 body{
     margin: 0;
@@ -8,7 +12,23 @@ body{
     color: #212529;
     text-align: left;
     background-color: #EDEDEE;
+    height: 100%;
   }
+
+  .wrapper {
+    min-height: 100%;
+    margin: 0 auto -155px;
+ }
+
+ footer, .push {
+  height: 100px;
+  margin: 0;
+}
+
+.page-footer{
+
+}
+
   
   a{
     color: inherit;
@@ -176,7 +196,7 @@ body{
   }
   
   .page-footer{
-    margin-left: 270px;
+    margin: 0;
   }
 
   .side-logo img{

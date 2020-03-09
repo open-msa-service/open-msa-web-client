@@ -1,43 +1,127 @@
 import React from 'react';
-import {  MDBRow, MDBCol, MDBCard, MDBCardBody } from "mdbreact";
-import FileUploadSection from './sections/FileUploadSection';
-import '../../css/timeline.css'
+import MyInfoTopSection from './sections/MyInfoTopSection';
+import TimeLineCardSection from './sections/TimeLineCardSection';
+import '../../css/timeline.css';
+import { getUser, getToken } from '../../shared/auth';
+import axios from 'axios';
 
 class MyInfoPage extends React.Component{
 
+    state = ({
+        userData : '',
+        timeLine : [],
+        isFriend : true,
+    })
+
     constructor(props){
         super(props);
+
+        this._deleteTimeLine = this._deleteTimeLine.bind(this);
+        this._modifyTimeLine = this._modifyTimeLine.bind(this);
     }
+
+    componentWillMount(){
+        let userId = getUser();
+        let token = getToken();
+
+        let config = {
+            headers : {
+                'Response-Type' : 'application/json',
+                'Authorization' : token
+            }
+        }
+
+        axios.get('/member/user/timeline/'+userId, config)
+        .then((res) => {
+            const tempTimeline = res.data.data.timeline;
+            const timeLineArray = JSON.parse(tempTimeline);
+            
+            this.setState({
+                userData : res.data.data.member,
+                timeLine : timeLineArray
+            })
+        }).catch(e => {
+            alert(e.message);
+            window.location = "/";
+        });
+    }
+
+    _deleteTimeLine = (timeId) =>{
+
+        if(window.confirm('해당 게시물을 삭제 하시겠습니까?')){
+            
+            axios.delete("/timeline/time/"+timeId, {
+                headers:{
+                    'Authorization' : getToken(),
+                    'Response-Type' : 'application/json'
+                }
+            })
+            .then((res) => {
+                alert(res.data.message);
+                window.location = "/home/myinfo";
+            })
+            .catch((e) => {
+                alert(e.data.message);
+                window.location = "/home/myinfo";
+            });
+
+        }
+
+    }
+
     
+    _modifyTimeLine = (data) =>{
+        const requestData = new FormData();
+        let fileNameString = [];
+        for(let i=0; i < data.file.length; i++){
+            requestData.append('file', data.file[i]);
+            fileNameString.push(data.file[i].name);
+        }
+
+        if(data.content.length == 0){
+            alert("게시물 내용을 입력해주세요.");
+            return false;
+        }
+        
+        let timeline = {
+            content : data.content,
+            scope : data.scope,
+            userId : getUser(),
+            fileNameList : fileNameString,
+            isUpdated : data.isUpdated,
+            timeId : data.timeId,
+            profileHref : this.state.userData.profileHref
+        }
+        
+        requestData.append('timeline', JSON.stringify(timeline));
+
+        axios.put("/timeline/time/upload/content",
+        requestData,
+        {
+            headers:{
+                'Content-Type':'multipart/form-data',
+                'Authorization' : getToken()
+            }
+        }).then((res1)=>{
+            alert(res1.data.message);
+            window.location = "/home/myinfo";
+        }).catch((e)=>{
+            alert("게시글 수정에 실패했습니다.");
+            window.location = "/home/myinfo";
+        })
+    }
 
     render(){
         return(
             <>
-                <MDBCard className="my-5 px-5 pb-1 mb-4 text-center">
-                    <MDBCardBody>
-                        <MDBRow className="text-md-left">
-                            <MDBCol lg="8" md="12" className="mb-5">
-                                <MDBCol md="4" lg="6" className="float-left">
-                                    <FileUploadSection />
-                                </MDBCol>
-                                <MDBCol md="6" lg="6" className="float-right">
-                                    <h4 className="font-weight-bold mb-3">사용자이름</h4>
-                                    <h6 className="font-weight-bold grey-text mb-3">
-                                        상태 메세지
-                                    </h6>
-                                    <p className="grey-text">
-                                        자기 소개에 관한 내용? 수정할 수 있게 뭘 해주던가 해야할듯
-                                    </p>
-                                </MDBCol>
-                                <MDBCol md="2" lg="6" className="float-right">
-                                    친구들 볼 수 있게?
-                                </MDBCol>
-                            </MDBCol>
-                        </MDBRow>
-                    </MDBCardBody>
-                </MDBCard>
-                <div>
-                    여기에는 내가 쓴 글들이 나오면 될 듯
+                <MyInfoTopSection userData = {this.state.userData} isFriend={this.state.isFriend}/>
+                <div className="timeline-wrap">
+                {
+                    this.state.timeLine.map((timeline, index) => (
+                        <TimeLineCardSection timeLine={timeline} key={index}
+                            userData={this.state.userData} onDelete={this._deleteTimeLine} onModify={this._modifyTimeLine} />
+                    ))
+                }
                 </div>
             </>
         )
