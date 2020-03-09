@@ -35,11 +35,17 @@
     max-width: 400px;
 }
 
+.friend-list{
+    width: 350px;
+    height: 300px;
+}
+
 .modify-delete{
     float: right;
     margin: 0;
     padding: 0;
 }
+
 
 
 @-webkit-keyframes closeWindow {

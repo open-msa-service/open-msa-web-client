@@ -1,16 +1,47 @@
 import React, { Component } from 'react';
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBIcon, MDBFormInline, MDBBtn } from 'mdbreact';
-import {getUser, getToken} from '../shared/auth'
+import {getUser, getToken} from '../shared/auth';
+import axios from 'axios';
 
 class TopNavigation extends Component {
     state = {
-        collapse: false
+        collapse: false,
+        username : ''
+    }
+
+    constructor(props){
+        super(props);
+
+        this._handleChange = this._handleChange.bind(this);
+        this._findMemberSubmit = this._findMemberSubmit.bind(this);
+        this._keyPressEvent = this._keyPressEvent.bind(this);
     }
 
     onClick = () => {
         this.setState({
             collapse: !this.state.collapse,
         });
+    }
+
+    _handleChange = (e) =>{
+        this.setState({
+            [e.target.name]:e.target.value
+        })
+    }
+
+    _findMemberSubmit = () =>{
+        if(this.state.username.length == 0){
+            alert("친구 이름을 입력하세요.");
+            return false;
+        }
+        window.location = "/home/search/"+this.state.username;
+        
+    }
+
+    _keyPressEvent = (e) =>{
+        if(e.charCode === 13){
+            this._findMemberSubmit();
+        }
     }
 
     toggle = () => {
@@ -31,16 +62,17 @@ class TopNavigation extends Component {
     render() {
         return (
             <MDBNavbar className="flexible-navbar" light expand="md" scrolling>
-                <MDBNavbarBrand href="/home">
+                <MDBNavbarBrand href="/home/main">
                     <strong>GC</strong>
                 </MDBNavbarBrand>
                 <MDBNavbarToggler onClick = { this.onClick } />
                 <MDBCollapse isOpen = { this.state.collapse } navbar>
                     <MDBNavbarNav center>
-                    <MDBFormInline className="md-form m-0">
-                        <input className="nav-search" type="search" placeholder="  친구검색" aria-label="Search"/>
-                        <MDBBtn size="sm" color="primary" className="my-0" type="submit"><MDBIcon icon="search" /></MDBBtn>
-                    </MDBFormInline>
+                    <div className="md-form m-0">
+                        <input className="nav-search" type="search" name="username" placeholder="  친구검색" aria-label="Search"
+                                    onChange={this._handleChange} onKeyPress={this._keyPressEvent}/>
+                        <MDBBtn size="sm" color="primary" className="my-0" type="submit" onClick={this._findMemberSubmit}><MDBIcon icon="search" /></MDBBtn>
+                    </div>
                     </MDBNavbarNav>
                     <MDBNavbarNav right>
                         <MDBNavItem>

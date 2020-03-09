@@ -15,6 +15,8 @@ class MyInfoTopSection extends React.Component{
 
         this._clickModify = this._clickModify.bind(this);
         this._clickCancle = this._clickCancle.bind(this);
+        this._sendUpdateUserInfo = this._sendUpdateUserInfo.bind(this);
+        this._sendFriendRequest = this._sendFriendRequest.bind(this);
     }
 
     _clickModify = () =>{
@@ -68,8 +70,27 @@ class MyInfoTopSection extends React.Component{
             })
     }
 
-    render(){
+    _sendFriendRequest = (data) =>{
         
+        axios.post("/member/friend/request", JSON.stringify(data),
+        {
+            headers:{
+                'Authorization' : getToken(),
+                'Content-Type' : 'application/json',
+            }
+        })
+        .then((res) =>{
+            alert(res.data.message);
+            window.location = "home/visit/" + this.props.userData.userId;
+        })
+        .catch((e) => {
+            alert(e.data.message);
+        })
+
+    }
+
+    render(){
+        const isFriend = this.props.isFriend;
         const isModify = this.state.modify;
 
         return(
@@ -80,7 +101,7 @@ class MyInfoTopSection extends React.Component{
                                     clickModify = {this._clickCancle} sendUpdate={this._sendUpdateUserInfo}/>)
                 :
             (<MyInfoTopDefault parentsData = {this.props.userData}
-                                    clickModify = {this._clickModify}/>)
+                                    clickModify = {this._clickModify} isFriend={isFriend} sendFriend={this._sendFriendRequest}/>)
             }
             </>
         )

@@ -1,8 +1,9 @@
 import React from 'react';
-import {  MDBCard, MDBCardBody , MDBBadge, MDBInput, MDBIcon, MDBContainer} from "mdbreact";
+import {  MDBCard, MDBCardBody , MDBBtn, MDBInput, MDBIcon, MDBContainer} from "mdbreact";
 import PhotoCardSection from './PhotoCardSection';
 import { getUser, getToken } from '../../../shared/auth';
 import TimeLineModifyModalSection from './TimeLineModifyModalSection';
+import CommentModalSection from './CommentModalSection';
 import axios from 'axios';
 
 
@@ -11,7 +12,8 @@ class TimeLineCardSection extends React.Component{
 
     state = {
         likeId : '',
-        likeLength : 0
+        likeLength : 0,
+        content : '',
     }
 
     constructor(props){
@@ -20,11 +22,12 @@ class TimeLineCardSection extends React.Component{
         this._sendDeleteRequest = this._sendDeleteRequest.bind(this);
         this._openModifyTimeLine = this._openModifyTimeLine.bind(this);
         this._clickLikes = this._clickLikes.bind(this);
+        this._handleChange = this._handleChange.bind(this);
     }
 
     componentDidMount(){
         this.setState({
-            likeLength : this.props.timeLine.likes.length
+            likeLength : this.props.timeLine.likes.length,
         })
     }
 
@@ -84,9 +87,46 @@ class TimeLineCardSection extends React.Component{
             }
             
         }).catch((e) => {
-            console.log(e);
+            alert("좋아요 처리시 에러가 발생했습니다.");
         })
         
+    }
+
+    _handleChange = (e) =>{
+        this.setState({
+            [e.target.name] : e.target.value
+        })
+    }
+
+    _writeComments = () =>{
+        
+        let data = {
+            content : this.state.content,
+            userId : getUser(),
+            tempTimeId : this.props.timeLine.timeId,
+            username : this.props.userData.username,
+            profileHref : this.props.userData.profileHref
+        }
+       if(this.state.content == null || this.state.content == ''){
+           alert("내용을 입력하세요!");
+           return false;
+       }
+        axios.post("/timeline/time/comments", JSON.stringify(data), 
+        {
+            headers :{
+                'Authorization' : getToken(),
+                'Content-Type' : 'application/json',
+                'Response-Type' : 'application/json'
+            }
+        }).then((res) => {
+            alert(res.data.message);
+            window.location = "/home/main";
+        }).catch((e)=>{
+            alert(e);
+            window.location = "/home/main";
+        })
+
+
     }
 
     render(){
@@ -100,17 +140,17 @@ class TimeLineCardSection extends React.Component{
                         <MDBCard news className="my-5">
                             <MDBCardBody>
                                 <div className="content">
-                                <div className="right-side-meta">{timeline.updateTime}
-                                    {getUser() == member.userId ? 
-                                    (<TimeLineModifyModalSection timeLine={timeline}
-                                            onDelete={this._sendDeleteRequest} onModify={this._openModifyTimeLine}/>):(<></>)}
-                                </div>
-                                <img
-                                    src={member.profileHref}
-                                    alt="프로필 사진"
-                                    className="profile-circle rounded-circle avatar-img z-depth-1-half"
-                                />
-                                    <span className="profile-name">{member.username}</span>
+                                    <div className="right-side-meta">{timeline.updateTime}
+                                        {getUser() == timeline.userId ? 
+                                        (<TimeLineModifyModalSection timeLine={timeline}
+                                                onDelete={this._sendDeleteRequest} onModify={this._openModifyTimeLine}/>):(<></>)}
+                                    </div>
+                                    <img
+                                        src={timeline.profileHref}
+                                        alt="프로필 사진"
+                                        className="profile-circle rounded-circle avatar-img z-depth-1-half"
+                                    />
+                                    <span className="profile-name">{timeline.username}</span>
                                 </div>
                             </MDBCardBody>
                             
@@ -119,17 +159,18 @@ class TimeLineCardSection extends React.Component{
                             <MDBCardBody>
                                 <div className="social-meta">
                                     <p>{this.textLineBreak(timeline.content)}</p>
-                                <span>
-                                    <MDBIcon far icon="heart" onClick={this._clickLikes}/>&nbsp;
-                                    {this.state.likeLength} likes
-                                </span>
-                                <p>
-                                    <MDBIcon icon="comment" />
-                                    13 comments
-                                </p>
+                                    <span>
+                                        <MDBIcon far icon="heart" onClick={this._clickLikes}/>&nbsp;
+                                        {this.state.likeLength} likes
+                                    </span>
+                                    <p>
+                                        <CommentModalSection comments = {timeline.comments} timeline={timeline}/>
+                                    </p>
                                 </div>
                                 <hr />
-                                <MDBInput far icon="heart" hint="Add Comment..." />
+                                <MDBInput far icon="heart" hint="Add Comment..." name="content" onChange={this._handleChange}/>
+                                <MDBBtn outline color="black" className="profile-image-modify"
+                                    onClick={this._writeComments}>댓글작성</MDBBtn>
                             </MDBCardBody>
                         </MDBCard>
                     </MDBContainer>

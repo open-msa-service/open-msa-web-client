@@ -9,7 +9,8 @@ class MyInfoPage extends React.Component{
 
     state = ({
         userData : '',
-        timeLine : []
+        timeLine : [],
+        isFriend : true,
     })
 
     constructor(props){
@@ -88,7 +89,8 @@ class MyInfoPage extends React.Component{
             userId : getUser(),
             fileNameList : fileNameString,
             isUpdated : data.isUpdated,
-            timeId : data.timeId
+            timeId : data.timeId,
+            profileHref : this.state.userData.profileHref
         }
         
         requestData.append('timeline', JSON.stringify(timeline));
@@ -112,7 +114,7 @@ class MyInfoPage extends React.Component{
     render(){
         return(
             <>
-                <MyInfoTopSection userData = {this.state.userData}/>
+                <MyInfoTopSection userData = {this.state.userData} isFriend={this.state.isFriend}/>
                 <div className="timeline-wrap">
                 {
                     this.state.timeLine.map((timeline, index) => (

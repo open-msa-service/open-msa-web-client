@@ -2,7 +2,6 @@ import React from 'react';
 import Routes from '../components/Routes';
 import TopNavigation from '../components/topNavigation';
 import SideNavigation from '../components/sideNavigation';
-import Footer from '../components/Footer';
 import axios from 'axios';
 import {getUser, getToken} from '../shared/auth'
 
@@ -15,7 +14,6 @@ class Home extends React.Component{
 
     constructor(props){
         super(props);
-        
     }
 
     componentWillMount(){
@@ -42,14 +40,17 @@ class Home extends React.Component{
 
     render(){
         return(
-            <div className="flexible-content">
-                <TopNavigation />
-                <SideNavigation userData = {this.state.userData}/>
-                    <main id="content" className="p-5">
-                        <Routes userData = {this.state.userData}/>
-                    </main>
-                <Footer />
-            </div>
+            <>
+                <div className="wrapper">
+                    <div className="flexible-content">
+                        <TopNavigation />
+                        <SideNavigation userData = {this.state.userData}/>
+                            <main id="content" className="p-5">
+                                <Routes userData = {this.state.userData}/>
+                            </main>
+                    </div>
+                </div>
+            </>
         )
     }
 

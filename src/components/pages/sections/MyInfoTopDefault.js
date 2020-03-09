@@ -9,6 +9,7 @@ class MyInfoTopDefault extends React.Component{
         super(props);
 
         this.onClick = this.onClick.bind(this);
+        this._sendFriendRequest = this._sendFriendRequest.bind(this);
     }
 
     onClick = () =>{
@@ -22,8 +23,22 @@ class MyInfoTopDefault extends React.Component{
           )
           : lines;
       };
+      
+
+    _sendFriendRequest = () =>{
+        // userId1이 userId2에 요청
+        const request = {
+            userId1 : getUser(),
+            userId2 : this.props.parentsData.userId
+        }
+
+        this.props.sendFriend(request);
+    }
 
     render(){
+
+        const isFriend = this.props.isFriend;
+
         return(
             <MDBCard className="my-5 px-5 pb-1 mb-4 text-center">
                 <MDBCardBody>
@@ -31,6 +46,8 @@ class MyInfoTopDefault extends React.Component{
                         <MDBCol lg="8" md="12" className="mb-5">
                             <MDBCol md="4" lg="6" className="float-left">
                                 <FileUploadSection imgSrc={this.props.parentsData.profileHref}/>
+                                {isFriend ? (<></>) : 
+                                (<MDBBtn color="primary" onClick={this._sendFriendRequest} >친구요청</MDBBtn>)}
                             </MDBCol>
                             <MDBCol md="6" lg="6" className="float-right">
                                 <h4 className="font-weight-bold mb-3">

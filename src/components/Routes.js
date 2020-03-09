@@ -1,24 +1,27 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import DashboardPage from './pages/DashboardPage';
 import ProfilePage from './pages/ProfilePage';
-import TablesPage from './pages/TablesPage';
-import NotFoundPage from './pages/NotFoundPage';
 import TimeLine from './pages/TimeLinePage';
 import MyInfoPage from './pages/MyInfoPage';
+import MemberSearchPage from './pages/MemberSearchPage';
+import MemberVisitPage from './pages/MemberVisitPage';
+import FriendListPage from './pages/FriendListPage';
+import ActiveLogPage from './pages/ActiveLogPage';
 
 class Routes extends React.Component {
 
-  
+  // /home/friends
   render() {
     return (
       <Switch>
         <Route path='/home/myinfo' component={MyInfoPage} />
+        <Route path='/home/main' component={TimeLine} />
         <Route path='/home/timeline' component={TimeLine} />
-        <Route path='/home/dashboard' component={DashboardPage} />
         <Route path='/home/profile' component={ProfilePage} />
-        <Route path='/home/tables' component={TablesPage} />
-        <Route path='/home/404' component={NotFoundPage} />
+        <Route path='/home/friends' component={FriendListPage} />
+        <Route path='/home/search/:username' component={MemberSearchPage} />
+        <Route path='/home/visit/:userId' component={MemberVisitPage} />
+        <Route path='/home/activelog' component={ActiveLogPage} />
       </Switch>
     );
   }
