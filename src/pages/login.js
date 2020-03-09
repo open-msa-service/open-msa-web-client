@@ -2,6 +2,7 @@ import React from 'react';
 import RightBox from '../components/right-box'
 import axios from 'axios';
 import {login} from '../shared/auth';
+import Footer from '../components/Footer';
 
 class SigninContainer extends React.Component{
 
@@ -19,7 +20,7 @@ class SigninContainer extends React.Component{
             // 로그인 성공 후 페이지 이동
             let token = res.headers.authorization;
             login(userId, token);
-            window.location = "/home";
+            window.location = "/home/main";
         }).catch(e => {
             alert(e.response.data.message);
         });
@@ -27,9 +28,12 @@ class SigninContainer extends React.Component{
 
     render(){
         return(
-            <div className={'authBox'}>
-                <RightBox onCreate={this.sendSignIn} />
-            </div>
+            <>
+                <div className={'authBox'}>
+                    <RightBox onCreate={this.sendSignIn} />
+                </div>
+                <Footer />
+            </>
         )
     }
 }

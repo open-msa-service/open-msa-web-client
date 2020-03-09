@@ -14,7 +14,7 @@ class TopNavigation extends React.Component{
 
         return (
             <div className="sidebar-fixed position-fixed">
-                <MDBNavbarBrand href="/home" className="side-logo">
+                <MDBNavbarBrand href="/home/main" className="side-logo">
                     <img alt="MDB React Logo" className="img-fluid" src={logo}/>
                 </MDBNavbarBrand>
                 <MDBListGroup className="list-group-flush">
@@ -44,36 +44,6 @@ class TopNavigation extends React.Component{
                         <MDBListGroupItem>
                             <MDBIcon icon="file-contract" className="mr-3"/>
                             활 동 로 그
-                        </MDBListGroupItem>
-                    </NavLink>
-                    <NavLink to="/home/dashboard" activeClassName="activeClass">
-                        <MDBListGroupItem>
-                            <MDBIcon icon="chart-pie" className="mr-3"/>
-                            Dashboard
-                        </MDBListGroupItem>
-                    </NavLink>
-                    <NavLink to="/home/profile" activeClassName="activeClass">
-                        <MDBListGroupItem>
-                            <MDBIcon icon="user" className="mr-3"/>
-                            Profile
-                        </MDBListGroupItem>
-                    </NavLink>
-                    <NavLink to="/home/tables" activeClassName="activeClass">
-                        <MDBListGroupItem>
-                            <MDBIcon icon="table" className="mr-3"/>
-                            Tables
-                        </MDBListGroupItem>
-                    </NavLink>
-                    <NavLink to="/home/maps" activeClassName="activeClass">
-                        <MDBListGroupItem>
-                            <MDBIcon icon="map" className="mr-3"/>
-                            Maps
-                        </MDBListGroupItem>
-                    </NavLink>
-                    <NavLink to="/home/404" activeClassName="activeClass">
-                        <MDBListGroupItem>
-                            <MDBIcon icon="exclamation" className="mr-3"/>
-                            404
                         </MDBListGroupItem>
                     </NavLink>
                 </MDBListGroup>

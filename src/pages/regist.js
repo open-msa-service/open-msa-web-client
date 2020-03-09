@@ -1,6 +1,7 @@
 import React from 'react';
 import RegistRight from '../components/regist-right-box';
 import axios from 'axios';
+import Footer from '../components/Footer';
 
 
 class Regist extends React.Component{
@@ -25,9 +26,12 @@ class Regist extends React.Component{
 
     render(){
         return(
-            <div className={'authBox'}>
-                <RegistRight onCreate={this.sendSignUp} />
-            </div>
+            <>
+                <div className={'authBox'}>
+                    <RegistRight onCreate={this.sendSignUp} />
+                </div>
+                <Footer />
+            </>
         )
     }
     
