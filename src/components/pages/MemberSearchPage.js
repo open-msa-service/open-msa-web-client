@@ -23,17 +23,18 @@ class MemberSearchPage extends React.Component{
         this.setState({
             username : params
         });
-        axios.get("/member/user/list/" + params,
+        axios.get("/member/search/" + params,
         {
             headers : {
                 'Authorization' : getToken(),
+                'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
                 'Response-Type' : 'application/json'
             }
         }).then((res) => {
             let tempData = res.data.data;
             
             this.setState({
-                params : res.data.data.member
+                params : res.data.data
             })
         }).catch((e) => {
             alert("조회에 실패했습니다.");

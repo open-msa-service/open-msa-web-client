@@ -11,6 +11,7 @@ class FriendSection extends React.Component{
     constructor(props){
         super(props);
 
+        debugger
         this.onClick = this.onClick.bind(this);
         this._visitFriend = this._visitFriend.bind(this);
         this._acceptFriend = this._acceptFriend.bind(this);
@@ -35,10 +36,10 @@ class FriendSection extends React.Component{
     _acceptFriend = () =>{
         const requestData = {
             userId1 : getUser(),
-            userId2 : this.props.parentsData.userId
+            userId2 : this.props.parentsData.userId1
         }
 
-        axios.put("/member/friend/accept", JSON.stringify(requestData),
+        axios.put("/friend/accept", JSON.stringify(requestData),
         {
             headers:{
                 'Authorization' : getToken(),
@@ -64,7 +65,7 @@ class FriendSection extends React.Component{
             <div className="timeline-card">
                 <MDBCol>
                     <MDBCard style={{ width: "22rem" }}>
-                        <MDBCardImage className="friend-list img-fluid" src={user.profileHref} waves />
+                        <MDBCardImage className="friend-list img-fluid" src="/images/unnamed.png" waves />
                         <MDBCardBody>
                         <MDBCardTitle>{user.username}</MDBCardTitle>
                             <MDBCardText>

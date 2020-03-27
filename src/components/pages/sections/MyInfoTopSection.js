@@ -52,7 +52,7 @@ class MyInfoTopSection extends React.Component{
         };
         formData.append('member', JSON.stringify(requestData));
 
-        axios.put("/member/user/profile",formData,
+        axios.put("/member/update",formData,
             {
                 headers:{
                     'Content-Type' : 'multipart/form-data',
@@ -72,7 +72,7 @@ class MyInfoTopSection extends React.Component{
 
     _sendFriendRequest = (data) =>{
         
-        axios.post("/member/friend/request", JSON.stringify(data),
+        axios.post("/friend/request", JSON.stringify(data),
         {
             headers:{
                 'Authorization' : getToken(),
@@ -81,7 +81,7 @@ class MyInfoTopSection extends React.Component{
         })
         .then((res) =>{
             alert(res.data.message);
-            window.location = "home/visit/" + this.props.userData.userId;
+            window.location = "/home/visit/" + this.props.userData.userId;
         })
         .catch((e) => {
             alert(e.data.message);

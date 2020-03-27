@@ -19,8 +19,6 @@ class MemberVisitPage extends React.Component{
     }
 
     componentDidMount(){
-        // userId1 : my Id,  userId2 : search Id
-        // /member/friend/timeline/{userId1}/{userId2}
         const params = this.props.match.params.userId;
 
         let config = {
@@ -30,10 +28,9 @@ class MemberVisitPage extends React.Component{
             }
         }
 
-        axios.get('/member/user/friend/timeline/'+getUser()+"/"+params, config)
+        axios.get('/time/visit/'+getUser()+"/"+params, config)
         .then((res) => {
             const tempTimeline = res.data.data.timeline;
-            const timeLineArray = JSON.parse(tempTimeline);
             const isFriend = res.data.data.isFriend;
             
             console.log("Visit page data : ");
@@ -41,7 +38,7 @@ class MemberVisitPage extends React.Component{
 
             this.setState({
                 userData : res.data.data.member,
-                timeLine : timeLineArray,
+                timeLine : tempTimeline,
                 isFriend : isFriend
             })
         }).catch(e => {

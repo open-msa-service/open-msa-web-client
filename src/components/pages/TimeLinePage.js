@@ -28,15 +28,12 @@ class TimeLine extends React.Component{
                 'Authorization' : token
             }
         }
-        
-        axios.get('/member/user/main/'+userId, config)
+
+        axios.get('/time/main/'+userId, config)
         .then((res) => {
-            const tempTimeline = res.data.data.timeline;
-            const timeLineArray = JSON.parse(tempTimeline);
-            
             this.setState({
                 userData : res.data.data.member,
-                timeLine : timeLineArray
+                timeLine : res.data.data.timeline
             })
         }).catch(e => {
             alert(e.message);
@@ -56,7 +53,7 @@ class TimeLine extends React.Component{
             alert("게시물 내용을 입력해주세요.");
             return false;
         }
-
+        debugger
         let timeline = {
             content : data.content,
             scope : data.scope,
@@ -68,7 +65,7 @@ class TimeLine extends React.Component{
 
         requestData.append('timeline', JSON.stringify(timeline));
         
-        axios.post("/timeline/time/upload/content",
+        axios.post("/time/write",
         requestData,
         {
             headers:{
