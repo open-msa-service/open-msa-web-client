@@ -5,7 +5,7 @@ import logo from "../assets/logo_2.png";
 
 class RightBox extends React.Component{
     state = {
-        userid : '',
+        username : '',
         password : ''
     }
     
@@ -25,7 +25,7 @@ class RightBox extends React.Component{
 
         // 상태 초기화
         this.setState({
-            userid:'',
+            username:'',
             password:''
         });
     }
@@ -52,7 +52,7 @@ class RightBox extends React.Component{
                                         label="아 이 디"
                                         group
                                         type="text"
-                                        name="userid"
+                                        name="username"
                                         onChange={this.handleChange}
                                         required
                                         />

@@ -111,7 +111,7 @@ class TimeLineCardSection extends React.Component{
            alert("내용을 입력하세요!");
            return false;
        }
-        axios.post("/timeline/time/comments", JSON.stringify(data), 
+        axios.post("/comment/write", JSON.stringify(data), 
         {
             headers :{
                 'Authorization' : getToken(),

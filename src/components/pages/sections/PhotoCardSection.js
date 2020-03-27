@@ -17,7 +17,7 @@ class PhotoCardSection extends React.Component{
     componentDidMount(){
         let tempSrc = this.props.imgSrc.substring(0, this.props.imgSrc.length-1).split(",");
         let imgSrc = tempSrc.map((src) => {
-            return "/static/images/timeline/"+src;
+            return "/images/timeline/"+src;
         });
 
         this.setState({

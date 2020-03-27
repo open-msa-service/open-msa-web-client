@@ -14,7 +14,7 @@ class Regist extends React.Component{
         }
         let requestData = JSON.stringify(data);
         
-        axios.post('/user/signup',
+        axios.post('/register',
             requestData, config
         ).then((res) => {
             alert(res.data.message);

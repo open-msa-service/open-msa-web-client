@@ -31,14 +31,11 @@ class MyInfoPage extends React.Component{
             }
         }
 
-        axios.get('/member/user/timeline/'+userId, config)
+        axios.get('/time/'+userId, config)
         .then((res) => {
-            const tempTimeline = res.data.data.timeline;
-            const timeLineArray = JSON.parse(tempTimeline);
-            
             this.setState({
                 userData : res.data.data.member,
-                timeLine : timeLineArray
+                timeLine : res.data.data.timeLine
             })
         }).catch(e => {
             alert(e.message);
@@ -50,7 +47,7 @@ class MyInfoPage extends React.Component{
 
         if(window.confirm('해당 게시물을 삭제 하시겠습니까?')){
             
-            axios.delete("/timeline/time/"+timeId, {
+            axios.delete("/time/delete/"+timeId, {
                 headers:{
                     'Authorization' : getToken(),
                     'Response-Type' : 'application/json'
@@ -95,7 +92,7 @@ class MyInfoPage extends React.Component{
         
         requestData.append('timeline', JSON.stringify(timeline));
 
-        axios.put("/timeline/time/upload/content",
+        axios.put("/time/update",
         requestData,
         {
             headers:{
