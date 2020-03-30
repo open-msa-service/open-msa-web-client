@@ -41,7 +41,6 @@ class FriendSection extends React.Component{
         axios.put("/friend/accept", JSON.stringify(requestData),
         {
             headers:{
-                'Authorization' : getToken(),
                 'Content-Type' : 'application/json'
             }
         })

@@ -1,3 +1,6 @@
+import axios from 'axios';
+import { getToken, getRefresh, getUser, login } from './shared/auth';
+
 // In production, we register a service worker to serve assets from local cache.
 
 // This lets the app load faster on subsequent visits in production, and gives
@@ -115,3 +118,55 @@ export function unregister() {
     });
   }
 }
+
+/**
+ * access-token과 refresh-token을 다룬다.
+ */
+
+// request interceptor
+axios.interceptors.request.use(
+  config => {
+      const token = getToken();
+      if(token){
+          config.headers['Authorization'] = "Bearer " + token;
+      }
+      return config;
+  },
+  error => {
+      Promise.reject(error)
+  }
+)
+
+// response interceptor
+axios.interceptors.response.use((response) => {
+  return response
+}, function(error){
+  const originalRequest = error.config;
+
+  if(error.response.status === 401 && originalRequest.url === '/ouath/token'){
+      window.location = '/';
+      return Promise.reject(error);
+  }
+
+  if(error.response.status === 401 && !originalRequest._retry){
+      originalRequest._retry = true;
+      const refreshToken = getRefresh();
+      return axios.post('/oauth/token',
+      {
+          'refresh_token':refreshToken,
+          auth:{
+              username:'msa-id',
+              password:'msa-password'
+          }
+      }
+      )
+      .then(res=>{
+          if(res.status === 201){
+              login(getUser(), res.data.access_token, res.data.refresh_token);
+              axios.defaults.headers.common['Authorization'] = "Bearer " + getToken();
+              return axios(originalRequest);
+          }
+      })
+  }
+  return Promise.reject(error);
+});

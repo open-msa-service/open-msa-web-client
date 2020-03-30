@@ -23,7 +23,6 @@ class Home extends React.Component{
         let config ={
             headers:{
                 'Response-Type':'application/json',
-                'Authorization':token
             }
         }
         
@@ -33,7 +32,7 @@ class Home extends React.Component{
                 userData:res.data.data
             })
         }).catch(e => {
-            console.log(e);
+            debugger
             window.location = "/";
         });
     }

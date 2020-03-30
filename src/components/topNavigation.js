@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBIcon, MDBFormInline, MDBBtn } from 'mdbreact';
 import {getUser, getToken} from '../shared/auth';
-import axios from 'axios';
+
 
 class TopNavigation extends Component {
     state = {

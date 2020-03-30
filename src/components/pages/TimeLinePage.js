@@ -27,7 +27,6 @@ class TimeLine extends React.Component{
         let config = {
             headers : {
                 'Response-Type' : 'application/json',
-                'Authorization' : token
             }
         }
 
@@ -72,7 +71,6 @@ class TimeLine extends React.Component{
         {
             headers:{
                 'Content-Type':'multipart/form-data',
-                'Authorization' : getToken()
             }
         }).then((res1)=>{
             alert(res1.data.message);
@@ -90,7 +88,6 @@ class TimeLine extends React.Component{
             
             axios.delete("/time/delete/"+timeId, {
                 headers:{
-                    'Authorization' : getToken(),
                     'Response-Type' : 'application/json'
                 }
             })
@@ -138,7 +135,6 @@ class TimeLine extends React.Component{
         {
             headers:{
                 'Content-Type':'multipart/form-data',
-                'Authorization' : getToken()
             }
         }).then((res1)=>{
             alert(res1.data.message);
