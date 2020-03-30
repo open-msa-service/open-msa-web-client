@@ -21,3 +21,6 @@
 
 ### API 명세
 Server API 명세는 커뮤니티 사이트의 서버 **ReadMe**를 참고해 주시기 바랍니다.
+
+### 구현화면
+<img src="/src/image/photo.png" />
