@@ -26,7 +26,6 @@ class MemberSearchPage extends React.Component{
         axios.get("/member/search/" + params,
         {
             headers : {
-                'Authorization' : getToken(),
                 'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
                 'Response-Type' : 'application/json'
             }

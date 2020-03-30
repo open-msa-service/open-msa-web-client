@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import ProfilePage from './pages/ProfilePage';
 import TimeLine from './pages/TimeLinePage';
 import MyInfoPage from './pages/MyInfoPage';
 import MemberSearchPage from './pages/MemberSearchPage';
@@ -17,7 +16,6 @@ class Routes extends React.Component {
         <Route path='/home/myinfo' component={MyInfoPage} />
         <Route path='/home/main' component={TimeLine} />
         <Route path='/home/timeline' component={TimeLine} />
-        <Route path='/home/profile' component={ProfilePage} />
         <Route path='/home/friends' component={FriendListPage} />
         <Route path='/home/search/:username' component={MemberSearchPage} />
         <Route path='/home/visit/:userId' component={MemberVisitPage} />

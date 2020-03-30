@@ -46,7 +46,7 @@ class MyInfoTopDefault extends React.Component{
                         <MDBCol lg="8" md="12" className="mb-5">
                             <MDBCol md="4" lg="6" className="float-left">
                                 <FileUploadSection imgSrc={this.props.parentsData.profileHref}/>
-                                {isFriend ? (<></>) : 
+                                {isFriend || this.props.parentsData.userId == getUser() ? (<></>) : 
                                 (<MDBBtn color="primary" onClick={this._sendFriendRequest} >친구요청</MDBBtn>)}
                             </MDBCol>
                             <MDBCol md="6" lg="6" className="float-right">

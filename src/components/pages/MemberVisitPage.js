@@ -23,8 +23,7 @@ class MemberVisitPage extends React.Component{
 
         let config = {
             headers : {
-                'Response-Type' : 'application/json',
-                'Authorization' : getToken()
+                'Response-Type' : 'application/json'
             }
         }
 

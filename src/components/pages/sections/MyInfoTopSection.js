@@ -56,7 +56,6 @@ class MyInfoTopSection extends React.Component{
             {
                 headers:{
                     'Content-Type' : 'multipart/form-data',
-                    'Authorization' : getToken(),
                     'Response-Type' : 'application/json'
                 }
             })
@@ -75,7 +74,6 @@ class MyInfoTopSection extends React.Component{
         axios.post("/friend/request", JSON.stringify(data),
         {
             headers:{
-                'Authorization' : getToken(),
                 'Content-Type' : 'application/json',
             }
         })
