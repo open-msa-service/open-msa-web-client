@@ -19,6 +19,7 @@ export const logout = () => {
     localStorage.removeItem('refresh_token')
 }
 
+// access token
 export const getToken = () => {
     try { 
         return localStorage.getItem('token')
@@ -28,6 +29,7 @@ export const getToken = () => {
     }
 }
 
+// refresh token
 export const getRefresh = () => {
     try { 
         return localStorage.getItem('refresh_token')

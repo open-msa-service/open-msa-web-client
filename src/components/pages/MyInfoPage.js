@@ -27,7 +27,6 @@ class MyInfoPage extends React.Component{
         let config = {
             headers : {
                 'Response-Type' : 'application/json',
-                'Authorization' : token
             }
         }
 
@@ -49,8 +48,7 @@ class MyInfoPage extends React.Component{
             
             axios.delete("/time/delete/"+timeId, {
                 headers:{
-                    'Authorization' : getToken(),
-                    'Response-Type' : 'application/json'
+                    'Authorization' : getToken()
                 }
             })
             .then((res) => {
@@ -96,8 +94,7 @@ class MyInfoPage extends React.Component{
         requestData,
         {
             headers:{
-                'Content-Type':'multipart/form-data',
-                'Authorization' : getToken()
+                'Content-Type':'multipart/form-data'
             }
         }).then((res1)=>{
             alert(res1.data.message);

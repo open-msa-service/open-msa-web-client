@@ -33,12 +33,12 @@ class RegistRight extends React.Component{
             return false;
         }
 
-        /* 테스트를 위해 간편한 비밀번호 입력을 위한 주석처리
+        //테스트를 위해 간편한 비밀번호 입력을 위한 주석처리
         if(!this.isPasswordValidate(this.state.password)){
             alert("비밀번호는 문자, 숫자, 특수문자를 포함하여 8~15자리를 입력해주세요.");
             return false;
         }
-        */
+        
         // 상태값을 onCreate를 통하여 부모에게 전달
         this.props.onCreate(this.state);
 

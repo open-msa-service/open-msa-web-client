@@ -17,11 +17,7 @@ class FriendListPage extends React.Component{
     }
 
     componentDidMount(){
-        axios.get("/friend/allList/" + getUser(), {
-            headers:{
-                'Authorization' : getToken()
-            }
-        })
+        axios.get("/friend/allList/" + getUser())
         .then((res) => {
             this.setState({
                 friend : res.data.data.friend,

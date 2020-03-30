@@ -66,7 +66,6 @@ class TimeLineCardSection extends React.Component{
         {
             headers:{
                 'Content-Type':'application/json',
-                'Authorization' : getToken(),
                 'Response-Type':'application/json'
             }
         }).then((res) => {
@@ -114,7 +113,6 @@ class TimeLineCardSection extends React.Component{
         axios.post("/comment/write", JSON.stringify(data), 
         {
             headers :{
-                'Authorization' : getToken(),
                 'Content-Type' : 'application/json',
                 'Response-Type' : 'application/json'
             }

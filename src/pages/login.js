@@ -33,7 +33,7 @@ class SigninContainer extends React.Component{
             login(userId, token, refresh);
             window.location = "/home/main";
         }).catch(e => {
-            alert(e.message);
+            alert("로그인에 실패했습니다.");
         });
     }
 
